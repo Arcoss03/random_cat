@@ -76,6 +76,7 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
+        
 
         .img-container {
             margin-top: 10px;
@@ -118,6 +119,7 @@
         margin: 10px;
         font-size: 1.5rem;
         cursor: pointer;
+        
         &:hover {
             scale: 1.05;
         }
@@ -126,8 +128,11 @@
     }
 
     .secondary-button {
-        background-color: #ffffff;
-        color: #ff5100;
+        background-color: #dbdbdb;
+        font-family: "Bungee Spice", sans-serif;
+        font-weight: 400;
+        font-style: normal;
+        color: #141414;
         border: 1px solid #ff5100;
         border-radius: 5px;
         padding: 10px;
