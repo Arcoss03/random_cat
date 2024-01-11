@@ -3,11 +3,10 @@ import axios from 'axios'
 const bearerToken = 'live_JHo4ZzZdBmVNfwSKPyO3w5T01L7SDxz28DvClwjsben4R2IVkjTREyuq7xml1Qpc';
 
 const appContainer = document.querySelector('#app');
-let newCatUrl = "https://cdn2.thecatapi.com/images/b7f.jpg";  // Déclarer la variable en dehors des fonctions
+let newCatUrl = "https://cdn2.thecatapi.com/images/b7f.jpg";
 
-// Fonction pour mettre à jour l'image du chat
 async function updateCatImage() {
-  newCatUrl = await getNewCatUrl();  // Mettre à jour la variable
+  newCatUrl = await getNewCatUrl();
   if (newCatUrl) {
     const catImage = document.querySelector('.logo');
     catImage.src = newCatUrl;
