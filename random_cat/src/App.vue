@@ -1,74 +1,74 @@
-<script lang="ts">
-    import { onMount } from 'svelte';
-    import ky from 'ky';
+<script setup lang="ts">
+import { onMounted, ref, type Ref } from "vue";
+import ky from "ky";
 
-    let catUrls: string[] = [];
-    let pos: number = 0;
-    const catApiUrl:string = 'https://api.thecatapi.com/v1/images/search';
+const catUrls: Ref<string[]> = ref([]);
+let pos: Ref<number> = ref(0);
+const catApiUrl: string = "https://api.thecatapi.com/v1/images/search";
 
-    onMount(async () => {
-        const { url } = await getCat();
-        catUrls = [url];
-    });
+onMounted(async () => {
+  const { url } = await getCat();
+  catUrls.value = [url];
+});
 
-    async function download() {
-        try {
-            const response = await ky.get(catUrls[pos]);
-            const blob = await response.blob();
-            const url = URL.createObjectURL(blob);
-            const link = document.createElement('a');
-            link.href = url;
-            link.download = 'cat.jpg';
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            URL.revokeObjectURL(url);
-        } catch (error) {
-            console.error('Erreur lors du téléchargement de l\'image:', error);
-        }
-    }
+async function download() {
+  try {
+    const response = await ky.get(catUrls.value[pos.value]);
+    const blob = await response.blob();
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "cat.jpg";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  } catch (error) {
+    console.error("Erreur lors du téléchargement de l'image:", error);
+  }
+}
 
-    function goNext() {
-        if (pos < catUrls.length - 1) {
-            pos++;
-        }
-    }
+function goNext() {
+  if (pos.value < catUrls.value.length - 1) {
+    pos.value++;
+  }
+}
 
-    function goBack() {
-        if (pos > 0) {
-            pos--;
-        }
-    }
+function goBack() {
+  if (pos.value > 0) {
+    pos.value--;
+  }
+}
 
-    async function getCat(): Promise<{ url: string }> {
-        const response = await ky.get(catApiUrl).json() as { url: string }[];
-        return response[0];
-    }
+async function getCat(): Promise<{ url: string }> {
+  const response = (await ky.get(catApiUrl).json()) as { url: string }[];
+  return response[0];
+}
 
-    async function changeCat() {
-        const { url } = await getCat();
-        catUrls.push(url);
-        pos = catUrls.length - 1;
-    }
+async function changeCat() {
+  const { url } = await getCat();
+  catUrls.value.push(url);
+  pos.value = catUrls.value.length - 1;
+}
 </script>
 
-<main class="main">
-    <div class="img-container">
-        {#if catUrls.length > 0}
-            <img src={catUrls[pos]} class="logo" alt="Chat" />
-        {:else}
-            <span class="loader"></span>
-        {/if}
-    </div>
-    <div class="button-container">
-        <button on:click={goBack} class:disabled={pos === 0} class="secondary-button" id="goNextButton">Back</button>
-        <a class="primary-button custom-padding" href="{catUrls[pos]}" target="_blank">
+<template>
+
+  <main class="main">
+        <div class="img-container">
+          <img v-if="catUrls.length > 0" :src="catUrls[pos]" class="logo" alt="Chat" />
+          <span v-else class="loader"></span>
+        </div>
+        <div class="button-container">
+          <button @click="goBack" :class="{ 'disabled': pos === 0 }" class="secondary-button" id="goNextButton">Back</button>
+          <a :href="catUrls[pos]" target="_blank" class="primary-button custom-padding">
             <svg xmlns="http://www.w3.org/2000/svg" height="26" viewBox="0 -960 960 960" width="24" fill="#fff"><path d="M480-320 280-520l56-58 104 104v-326h80v326l104-104 56 58-200 200ZM240-160q-33 0-56.5-23.5T160-240v-120h80v120h480v-120h80v120q0 33-23.5 56.5T720-160H240Z"/></svg>
-        </a>
-        <button on:click={changeCat} class="primary-button" id="changeCatButton">Change cat image</button>
-        <button on:click={goNext} class:disabled={pos === catUrls.length -1 } class="secondary-button" id="goBackButton">Next</button>
-    </div>
-</main>
+          </a>
+          <button @click="changeCat" class="primary-button" id="changeCatButton">Change cat image</button>
+          <button @click="goNext" :class="{ 'disabled': pos === catUrls.length - 1 }" class="secondary-button" id="goBackButton">Next</button>
+        </div>
+      </main>
+</template>
 
 <style lang="scss">
     .main {
@@ -76,7 +76,6 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        
 
         .img-container {
             margin-top: 10px;
