@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { onMounted, ref, type Ref } from "vue";
+import IconDownload from "./components/icons/IconDownload.vue";
 import ky from "ky";
 
-const catUrls: Ref<string[]> = ref([]);
+let catUrls: Ref<string[]> = ref([]);
 let pos: Ref<number> = ref(0);
 const catApiUrl: string = "https://api.thecatapi.com/v1/images/search";
 
@@ -11,21 +12,8 @@ onMounted(async () => {
   catUrls.value = [url];
 });
 
-async function download() {
-  try {
-    const response = await ky.get(catUrls.value[pos.value]);
-    const blob = await response.blob();
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = "cat.jpg";
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    URL.revokeObjectURL(url);
-  } catch (error) {
-    console.error("Erreur lors du téléchargement de l'image:", error);
-  }
+function download() {
+  window.open(catUrls.value[pos.value], '_blank');
 }
 
 function goNext() {
@@ -61,9 +49,9 @@ async function changeCat() {
         </div>
         <div class="button-container">
           <button @click="goBack" :class="{ 'disabled': pos === 0 }" class="secondary-button" id="goNextButton">Back</button>
-          <a :href="catUrls[pos]" target="_blank" class="primary-button custom-padding">
-            <svg xmlns="http://www.w3.org/2000/svg" height="26" viewBox="0 -960 960 960" width="24" fill="#fff"><path d="M480-320 280-520l56-58 104 104v-326h80v326l104-104 56 58-200 200ZM240-160q-33 0-56.5-23.5T160-240v-120h80v120h480v-120h80v120q0 33-23.5 56.5T720-160H240Z"/></svg>
-          </a>
+          <button @click="download" id="download" class="primary-button custom-padding">
+            <IconDownload />
+          </button>
           <button @click="changeCat" class="primary-button" id="changeCatButton">Change cat image</button>
           <button @click="goNext" :class="{ 'disabled': pos === catUrls.length - 1 }" class="secondary-button" id="goBackButton">Next</button>
         </div>
@@ -122,8 +110,6 @@ async function changeCat() {
         &:hover {
             scale: 1.05;
         }
-        
-
     }
 
     .secondary-button {
