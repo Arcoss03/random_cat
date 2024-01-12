@@ -138,6 +138,9 @@ async function changeCat() {
         margin: 10px;
         font-size: 1.5rem;
         cursor: pointer;
+        font-family: "Bungee Spice", sans-serif;
+        font-weight: 400;
+        font-style: normal;
         &:hover {
             scale: 1.05;
         }
