@@ -91,7 +91,7 @@ async function changeCat() {
 
     @media screen and (max-width: 768px) {
       position: absolute;
-      top: 50%;
+      top: 48%;
       left: 50%;
       transform: translate(-50%, -50%);
       width: 100vw;
