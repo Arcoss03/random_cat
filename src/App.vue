@@ -65,7 +65,7 @@ async function changeCat() {
   justify-content: center;
 
   .img-container {
-    margin-top: 10px;
+    margin-bottom: 30px;
     width: 40vw;
     height: 40vw;
     border: solid rgb(24, 24, 24) 3px;
@@ -79,7 +79,7 @@ async function changeCat() {
     @media screen and (max-width: 768px) {
       position: absolute;
       width: 100vw;
-      height: 100vh;
+      height: 100%;
       top: 0;
       left: 0;
       z-index: -1;
@@ -99,11 +99,8 @@ async function changeCat() {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: 20px;
-    @media screen and (max-width: 768px) {
-      position: absolute;
-      bottom: 30px;
-    }
+    position: absolute;
+    bottom: 10px;
 
     .custom-padding {
       padding: 12px 15px 8px;
