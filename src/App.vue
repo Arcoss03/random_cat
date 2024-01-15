@@ -63,6 +63,9 @@ async function changeCat() {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  @media screen and (max-width: 768px) {
+    overflow: hidden;
+  }
 
   .img-container {
     margin-bottom: 30px;
