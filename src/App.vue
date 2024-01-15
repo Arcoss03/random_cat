@@ -18,7 +18,7 @@ function download() {
 
 function event (){
   if (pos.value === enventPos.value) {
-    alert("Miaowww" + enventPos.value +"cats!");
+    alert("Miaowww " + enventPos.value +" cats!");
     enventPos.value += 100;
   }
 
