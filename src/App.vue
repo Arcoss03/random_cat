@@ -26,7 +26,6 @@ function event (){
 
 function goNext() {
   if (pos.value === catUrls.value.length - 2) {
-    console.log("change cat");
     pos.value++;
     changeCat();
   } else {
