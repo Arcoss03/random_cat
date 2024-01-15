@@ -89,5 +89,6 @@ body {
   justify-content: center;
   flex-direction: column;
   place-items: center;
+  overflow: hidden;
   
 }
