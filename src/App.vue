@@ -5,6 +5,7 @@ import ky from "ky";
 
 let catUrls: Ref<string[]> = ref([]);
 let pos: Ref<number> = ref(0);
+let enventPos: Ref<number> = ref(100);
 const catApiUrl: string = "https://api.thecatapi.com/v1/images/search?limit=10";
 
 onMounted(async () => {
@@ -15,6 +16,14 @@ function download() {
   window.open(catUrls.value[pos.value], '_blank');
 }
 
+function event (){
+  if (pos.value === enventPos.value) {
+    alert("Miaowww" + enventPos.value +"cats!");
+    enventPos.value += 100;
+  }
+
+}
+
 function goNext() {
   if (pos.value === catUrls.value.length - 2) {
     console.log("change cat");
@@ -23,6 +32,7 @@ function goNext() {
   } else {
     pos.value++;
   }
+  event();
 }
 
 function goBack() {
