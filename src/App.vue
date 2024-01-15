@@ -91,14 +91,14 @@ async function changeCat() {
 
     @media screen and (max-width: 768px) {
       position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
       width: 100vw;
-      height: 100%;
-      top: 0;
-      left: 0;
+      height: auto;
       z-index: -1;
       margin: 0;
-      border-radius: 0;
-      border: none;
+      aspect-ratio: 9/16;
     }
 
     img {
@@ -168,9 +168,9 @@ async function changeCat() {
 }
 
 .loader {
-  width: 20%;
-  height: 20%;
-  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+  border-radius: 9999px;
   display: inline-block;
   position: relative;
   border: 3px solid #FF3D00;
@@ -184,9 +184,9 @@ async function changeCat() {
     left: 4px;
     top: 4px;
     border: 2px solid #FFF;
-    width: 10%;
-    height: 10%;
-    border-radius: 50%;
+    width: 15px;
+    height: 15px;
+    border-radius: 9999px;
   }
 
   @keyframes rotation {
