@@ -2,6 +2,7 @@
 import { onMounted, ref, type Ref } from "vue";
 import IconDownload from "./components/icons/IconDownload.vue";
 import ky from "ky";
+import { hasJSDocParameterTags } from "typescript";
 
 let catUrls: Ref<string[]> = ref([]);
 let pos: Ref<number> = ref(0);
@@ -10,7 +11,19 @@ const catApiUrl: string = "https://api.thecatapi.com/v1/images/search?limit=10";
 
 onMounted(async () => {
   catUrls.value = await getCat();
+  window.addEventListener('keyup', (event) => handleKeyUp(event));
 });
+
+function handleKeyUp(event: KeyboardEvent) {
+      // Check if the pressed key is "Space"
+      if (event.key === ' ' || event.key === 'ArrowRight') {
+        // Call the SayHello function or any other function you want
+        goNext();
+      } else if (event.key === 'ArrowLeft') {
+        goBack();
+      }
+    }
+
 
 function download() {
   window.open(catUrls.value[pos.value], '_blank');
